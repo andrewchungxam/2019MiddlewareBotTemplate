@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Integration.AspNet.Core;
 using Microsoft.Bot.Connector.Authentication;
-//using Microsoft.BotBuilderSamples.Translation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -45,13 +44,11 @@ namespace MiddlewareBot
 
             services.AddSingleton<IStorage, MemoryStorage>();
 
-            services.AddSingleton<CosmosTranscriptStore>();
+            // Create the Translation Middleware that will be added to the middleware pipeline in the AdapterWithErrorHandler
+            services.AddSingleton<TemplateMiddleware>();
 
             // Create the Translation Middleware that will be added to the middleware pipeline in the AdapterWithErrorHandler
-            services.AddSingleton<TranslationMiddleware>();
-
-            // Create the Translation Middleware that will be added to the middleware pipeline in the AdapterWithErrorHandler
-            services.AddSingleton<TranslationMiddleware2>();
+            services.AddSingleton<TemplateMiddleware2>();
 
             // Create the Translation Middleware that will be added to the middleware pipeline in the AdapterWithErrorHandler
             services.AddSingleton<TemplateMiddleware3>();

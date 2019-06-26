@@ -11,7 +11,7 @@ namespace MiddlewareBot
 {
     public class AdapterWithErrorHandler : BotFrameworkHttpAdapter
     {
-        public AdapterWithErrorHandler(ICredentialProvider credentialProvider, ILogger<BotFrameworkHttpAdapter> logger, TranslationMiddleware translationMiddleware, TranslationMiddleware2 translationMiddleware2, TemplateMiddleware3 translationMiddleware3)
+        public AdapterWithErrorHandler(ICredentialProvider credentialProvider, ILogger<BotFrameworkHttpAdapter> logger, TemplateMiddleware templateMiddleware, TemplateMiddleware2 templateMiddleware2, TemplateMiddleware3 templateMiddleware3)
             : base(credentialProvider)
         {
             if (credentialProvider == null)
@@ -24,25 +24,25 @@ namespace MiddlewareBot
                 throw new NullReferenceException(nameof(logger));
             }
 
-            if (translationMiddleware == null)
+            if (templateMiddleware == null)
             {
-                throw new NullReferenceException(nameof(translationMiddleware));
+                throw new NullReferenceException(nameof(templateMiddleware));
             }
 
-            if (translationMiddleware2 == null)
+            if (templateMiddleware2 == null)
             {
-                throw new NullReferenceException(nameof(translationMiddleware2));
+                throw new NullReferenceException(nameof(templateMiddleware2));
             }
 
-            if (translationMiddleware3 == null)
+            if (templateMiddleware3 == null)
             {
-                throw new NullReferenceException(nameof(translationMiddleware2));
+                throw new NullReferenceException(nameof(templateMiddleware2));
             }
 
-            // Add translation middleware to the adapter's middleware pipeline
-            Use(translationMiddleware);
-            Use(translationMiddleware2);
-            Use(translationMiddleware3);
+            // Add the template middleware to the adapter's middleware pipeline
+            Use(templateMiddleware);
+            Use(templateMiddleware2);
+            Use(templateMiddleware3);
 
 
             OnTurnError = async (turnContext, exception) =>

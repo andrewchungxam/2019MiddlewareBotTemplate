@@ -8,9 +8,9 @@ using Microsoft.Bot.Schema;
 
 namespace MiddlewareBot
 {
-    public class TranslationMiddleware : IMiddleware
+    public class TemplateMiddleware : IMiddleware
     {
-        public TranslationMiddleware()
+        public TemplateMiddleware()
         {
         }
         public async Task OnTurnAsync(ITurnContext turnContext, NextDelegate next, CancellationToken cancellationToken = default(CancellationToken))

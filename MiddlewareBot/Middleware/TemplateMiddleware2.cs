@@ -8,9 +8,9 @@ using Microsoft.Bot.Schema;
 
 namespace MiddlewareBot
 {
-    public class TranslationMiddleware2 : IMiddleware
+    public class TemplateMiddleware2 : IMiddleware
     {
-        public TranslationMiddleware2()
+        public TemplateMiddleware2()
         {
         }
 
