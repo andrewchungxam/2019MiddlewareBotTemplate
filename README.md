@@ -1,8 +1,6 @@
 # 2019MiddlewareBotTemplate
 2019 Middleware Bot Template
 
-﻿# MiddlewareBot
-
 Bot Framework v4 echo bot sample.
 
 This bot has been created using [Bot Framework](https://dev.botframework.com), it shows how to create a simple bot that accepts input from the user and echoes it back.
