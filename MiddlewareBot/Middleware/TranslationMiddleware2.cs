@@ -5,7 +5,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Schema;
-//using MiddlewareBot.Middleware;
 
 namespace MiddlewareBot
 {

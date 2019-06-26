@@ -54,7 +54,7 @@ namespace MiddlewareBot
             services.AddSingleton<TranslationMiddleware2>();
 
             // Create the Translation Middleware that will be added to the middleware pipeline in the AdapterWithErrorHandler
-            services.AddSingleton<TranslationMiddleware3>();
+            services.AddSingleton<TemplateMiddleware3>();
 
             // Create the bot as a transient. In this case the ASP Controller is expecting an IBot.
             services.AddTransient<IBot, EchoBot>();

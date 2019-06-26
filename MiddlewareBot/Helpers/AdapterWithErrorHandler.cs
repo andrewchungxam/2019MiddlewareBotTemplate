@@ -11,7 +11,7 @@ namespace MiddlewareBot
 {
     public class AdapterWithErrorHandler : BotFrameworkHttpAdapter
     {
-        public AdapterWithErrorHandler(ICredentialProvider credentialProvider, ILogger<BotFrameworkHttpAdapter> logger, TranslationMiddleware translationMiddleware, TranslationMiddleware2 translationMiddleware2, TranslationMiddleware3 translationMiddleware3)
+        public AdapterWithErrorHandler(ICredentialProvider credentialProvider, ILogger<BotFrameworkHttpAdapter> logger, TranslationMiddleware translationMiddleware, TranslationMiddleware2 translationMiddleware2, TemplateMiddleware3 translationMiddleware3)
             : base(credentialProvider)
         {
             if (credentialProvider == null)
