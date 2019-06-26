@@ -1,7 +1,18 @@
 # 2019MiddlewareBotTemplate
 2019 Middleware Bot Template
 
-Bot Framework v4 echo bot sample.
+There are two projects included:
+
+One is called the Middlewarebot; it is based on the official Bot Framework v4 echo bot sample.
+
+There has been several elements that contain changes from the standard template:
+- Startup.cs
+- AdapterWithErrorHandler.cs
+- TemplateMiddleware.cs
+- TemplateMiddleware2.cs
+- TemplateMiddleware3.cs
+
+When you want to add your own middleware, you'll need to know where all the middleware pieces need to be declared.  Search in the project for TemplateMiddleware3 as an example. 
 
 This bot has been created using [Bot Framework](https://dev.botframework.com), it shows how to create a simple bot that accepts input from the user and echoes it back.
 
