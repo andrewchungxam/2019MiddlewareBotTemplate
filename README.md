@@ -5,6 +5,8 @@ There are two projects included:
 
 One is called the Middlewarebot; it is based on the official Bot Framework v4 echo bot sample.
 
+This bot has been created using [Bot Framework](https://dev.botframework.com), it shows how to create a simple bot that accepts input from the user and echoes it back.
+
 There has been several elements that contain changes from the standard template:
 - Startup.cs
 - AdapterWithErrorHandler.cs
@@ -14,7 +16,17 @@ There has been several elements that contain changes from the standard template:
 
 When you want to add your own middleware, you'll need to know where all the middleware pieces need to be declared.  Search in the project for TemplateMiddleware3 as an example. 
 
-This bot has been created using [Bot Framework](https://dev.botframework.com), it shows how to create a simple bot that accepts input from the user and echoes it back.
+The other is called StateMiddlewareBot.  
+
+It is duplicated from the MiddlewareBot and then added the ability to maintain UserState.
+
+Comment out all Middleware - you'll see the normal Echo + counter behavior with each interaction adding one count to the displayed counter.  
+- Then in the StateMiddleware, we'll simply have the middleware add one count (ie. you'll see the counter jump up more than one at a time.)  
+- Then in StateMiddleware2, we'll have the middleware add another count (you'll see futher jumps.)   -Finally in StateMiddleware3, we'll have the middleware add a count for each message that is sent out (you'll see accelerated jumps.)
+
+By doing these three examples, we'll see how Middleware interacts with your bot, interacts with each other (when there is multiple parts to your Middleware), and finally, how you can fine-tune your Middleware to only act in certain instances.
+
+In StateMiddleware, 
 
 ## Prerequisites
 
