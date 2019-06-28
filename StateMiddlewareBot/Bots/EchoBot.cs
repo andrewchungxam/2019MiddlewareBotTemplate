@@ -201,9 +201,6 @@ namespace MiddlewareBot.Bots
                 await turnContext.SendActivityAsync($"Message received at: {conversationData.Timestamp}");
                 await turnContext.SendActivityAsync($"Message received from: {conversationData.ChannelId}");
             }
-
-
-
         }
 
         protected override async Task OnMembersAddedAsync(IList<ChannelAccount> membersAdded, ITurnContext<IConversationUpdateActivity> turnContext, CancellationToken cancellationToken)
@@ -218,3 +215,8 @@ namespace MiddlewareBot.Bots
         }
     }
 }
+
+
+
+
+
