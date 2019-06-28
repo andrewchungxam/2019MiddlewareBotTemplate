@@ -21,22 +21,20 @@ namespace MiddlewareBot.Bots
         private BotState _userState;
 
         //part of method 3
-        private BotState _counterState3;
+        private BotState _counterState;
 
 
-        //public EchoBot(ConversationState conversationState, UserState userState)
-        //{
-        //    _conversationState = conversationState;
-        //    _userState = userState;
-            
-        //}
-
-        public EchoBot(ConversationState conversationState, UserState userState, CounterState3 counterState3)
+        public EchoBot(ConversationState conversationState, UserState userState)
         {
             _conversationState = conversationState;
             _userState = userState;
-            _counterState3 = counterState3;
+        }
 
+        public EchoBot(ConversationState conversationState, UserState userState, CounterState counterState)
+        {
+            _conversationState = conversationState;
+            _userState = userState;
+            _counterState = counterState;
         }
 
         public override async Task OnTurnAsync(ITurnContext turnContext, CancellationToken cancellationToken = default(CancellationToken))
@@ -132,8 +130,8 @@ namespace MiddlewareBot.Bots
 
             //Give counter state it's own property
 
-            var counterStateAccessors3 = _counterState3.CreateProperty<CounterState>(nameof(CounterState));
-            var counterState = await counterStateAccessors3.GetAsync(turnContext, () => new CounterState());
+            var counterStateAccessors3 = _counterState.CreateProperty<CounterData>(nameof(CounterData));
+            var counterState = await counterStateAccessors3.GetAsync(turnContext, () => new CounterData());
             
             // Get the conversation state from the turn context.
             //var oldState3 = conversationData.CounterState3;   
@@ -141,7 +139,7 @@ namespace MiddlewareBot.Bots
             var oldState = counterState;
 
             // Bump the turn count for this conversation.
-            var newState = new CounterState { TurnCount = oldState.TurnCount + 1 };
+            var newState = new CounterData { TurnCount = oldState.TurnCount + 1 };
 
             await counterStateAccessors3.SetAsync(turnContext, newState);
 

@@ -52,7 +52,7 @@ namespace MiddlewareBot
             services.AddSingleton<ConversationState>();
 
             // Part of method 3
-            services.AddSingleton<CounterState3>();
+            services.AddSingleton<CounterState>();
 
             // Create the Translation Middleware that will be added to the middleware pipeline in the AdapterWithErrorHandler
             services.AddSingleton<TemplateMiddleware>();
