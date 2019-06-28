@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 using MiddlewareBot.Bots;
+using StateMiddlewareBot;
 
 namespace MiddlewareBot
 {
@@ -49,6 +50,9 @@ namespace MiddlewareBot
 
             // Create the Conversation state. 
             services.AddSingleton<ConversationState>();
+
+            // Part of method 3
+            services.AddSingleton<CounterState3>();
 
             // Create the Translation Middleware that will be added to the middleware pipeline in the AdapterWithErrorHandler
             services.AddSingleton<TemplateMiddleware>();
