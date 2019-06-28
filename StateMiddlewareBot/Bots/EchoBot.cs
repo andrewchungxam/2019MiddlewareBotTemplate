@@ -58,107 +58,56 @@ namespace MiddlewareBot.Bots
             var userStateAccessors = _userState.CreateProperty<UserProfile>(nameof(UserProfile));
             var userProfile = await userStateAccessors.GetAsync(turnContext, () => new UserProfile());
 
-            ///////////////////////////////
-            ///OLD
-            ///
-
-
-            //// Get the conversation state from the turn context.
-            //var oldState = await _accessors.CounterState.GetAsync(turnContext, () => new CounterState());
-
-            //// Bump the turn count for this conversation.
-            //var newState = new CounterState { TurnCount = oldState.TurnCount + 1 };
-
-            //// Set the property using the accessor.
-            //await _accessors.CounterState.SetAsync(turnContext, newState);
-
-            //// Save the new turn count into the conversation state.
-            ////await _accessors.ConversationState.SaveChangesAsync(turnContext);
-
-            //// Echo back to the user whatever they typed.
-            //var responseMessage = $"Turn {newState.TurnCount}: You sent '{turnContext.Activity.Text}'\n";
-            //await turnContext.SendActivityAsync(responseMessage);
             ////////////////////////////////////////////////////////////////////////
             ///METHOD 1
 
-            // Get the conversation state from the turn context.
-            //var oldState = conversationData.CounterState;   //.GetAsync(turnContext, () => new CounterState());
+            //Get the conversation state from the turn context.
+            var oldStateMethod1 = conversationData.CounterData;
 
-            //// Bump the turn count for this conversation.
-            //var newState = new CounterState { TurnCount = oldState.TurnCount + 1 };
+            // Bump the turn count for this conversation.
+            var newStateMethod1 = new CounterData { TurnCount = oldStateMethod1.TurnCount + 1 };
 
-            //conversationData.CounterState = newState;
+            conversationData.CounterData= newStateMethod1;
 
-            //// Echo back to the user whatever they typed.
-            //var responseMessage = $"Turn {newState.TurnCount}: You sent '{turnContext.Activity.Text}'\n";
-            //await turnContext.SendActivityAsync(responseMessage);
-
-
-            ///////////////////////////////////////////////////////
+            // Echo back to the user whatever they typed.
+            var responseMessage = $"Turn {newStateMethod1.TurnCount}: You sent '{turnContext.Activity.Text}'\n";
+            await turnContext.SendActivityAsync(responseMessage);
 
             ////////////////////////////////////////////////////////////////////////
             ///METHOD 2
 
             //// Get the conversation state from the turn context.
-            //var oldState2 = conversationData.CounterState;   //.GetAsync(turnContext, () => new CounterState());
+            //var oldStateMethod2 = conversationData.CounterData;   //.GetAsync(turnContext, () => new CounterState());
 
             //// Bump the turn count for this conversation.
-            //var newState2 = new CounterState { TurnCount = oldState.TurnCount + 1 };
+            //var newStateMethod2 = new CounterData { TurnCount = oldStateMethod2.TurnCount + 1 };
 
-            ////DELETE// Set the property using the accessor.
-            ////DELETE//await _accessors.CounterState.SetAsync(turnContext, newState);
-
-            //conversationData.CounterState = newState;
+            //conversationData.CounterData = newStateMethod2;
 
             //await conversationStateAccessors.SetAsync(turnContext, conversationData);
 
-
-            ////DELETE// Save the new turn count into the conversation state.
-            ////DELETE//await _accessors.ConversationState.SaveChangesAsync(turnContext);
-
             //// Echo back to the user whatever they typed.
-            //var responseMessage2 = $"Turn {newState2.TurnCount}: You sent '{turnContext.Activity.Text}'\n";
+            //var responseMessage2 = $"Turn {newStateMethod2.TurnCount}: You sent '{turnContext.Activity.Text}'\n";
             //await turnContext.SendActivityAsync(responseMessage2);
-
-
-            ///////////////////////////////////////////////////////
-
 
             ////////////////////////////////////////////////////////////////////////
             ///METHOD 3
             ///
 
-            //Give counter state it's own property
+            ////Give counter state it's own property
+            //var counterStateAccessorsMethod3 = _counterState.CreateProperty<CounterData>(nameof(CounterData));
+            //var counterStateMethod3 = await counterStateAccessorsMethod3.GetAsync(turnContext, () => new CounterData());
 
-            var counterStateAccessors3 = _counterState.CreateProperty<CounterData>(nameof(CounterData));
-            var counterState = await counterStateAccessors3.GetAsync(turnContext, () => new CounterData());
-            
-            // Get the conversation state from the turn context.
-            //var oldState3 = conversationData.CounterState3;   
+            //var oldStateMethod3 = counterStateMethod3;
 
-            var oldState = counterState;
+            //// Bump the turn count for this conversation.
+            //var newStateMethod3 = new CounterData { TurnCount = oldStateMethod3.TurnCount + 1 };
 
-            // Bump the turn count for this conversation.
-            var newState = new CounterData { TurnCount = oldState.TurnCount + 1 };
+            //await counterStateAccessorsMethod3.SetAsync(turnContext, newStateMethod3);
 
-            await counterStateAccessors3.SetAsync(turnContext, newState);
-
-            // Set the property using the accessor.
-            //await _accessors.CounterState.SetAsync(turnContext, newState);
-
-            //conversationData.CounterState = newState;
-
-            //await conversationStateAccessors.SetAsync(turnContext, conversationData);
-
-
-            // Save the new turn count into the conversation state.
-            //await _accessors.ConversationState.SaveChangesAsync(turnContext);
-
-
-
-            // Echo back to the user whatever they typed.
-            var responseMessage3 = $"Turn {newState.TurnCount}: You sent '{turnContext.Activity.Text}'\n";
-            await turnContext.SendActivityAsync(responseMessage3);
+            //// Echo back to the user whatever they typed.
+            //var responseMessageMethod3 = $"Turn {newStateMethod3.TurnCount}: You sent '{turnContext.Activity.Text}'\n";
+            //await turnContext.SendActivityAsync(responseMessageMethod3);
 
             ////////////////////////////////////////////////////////////////////////////////////////////////////
 

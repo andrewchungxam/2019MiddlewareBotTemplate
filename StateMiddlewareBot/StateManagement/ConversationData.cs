@@ -17,7 +17,7 @@ namespace StateMiddlewareBot.StateManagement
         public bool PromptedUserForName { get; set; } = false;
 
         //GetTheCounterState
-        public CounterData CounterState { get;set;} = new CounterData();
+        public CounterData CounterData { get;set;} = new CounterData();
 
     }
 }
