@@ -11,7 +11,7 @@ namespace MiddlewareBot
 {
     public class AdapterWithErrorHandler : BotFrameworkHttpAdapter
     {
-        public AdapterWithErrorHandler(ICredentialProvider credentialProvider, ILogger<BotFrameworkHttpAdapter> logger, TemplateMiddleware templateMiddleware, TemplateMiddleware2 templateMiddleware2, TemplateMiddleware3 templateMiddleware3)
+        public AdapterWithErrorHandler(ICredentialProvider credentialProvider, ILogger<BotFrameworkHttpAdapter> logger, TemplateMiddleware templateMiddleware, TemplateMiddleware2 templateMiddleware2, TemplateMiddleware3 templateMiddleware3, TemplateMiddleware4 templateMiddleware4, TemplateMiddleware5 templateMiddleware5)
             : base(credentialProvider)
         {
             if (credentialProvider == null)
@@ -31,19 +31,25 @@ namespace MiddlewareBot
 
             if (templateMiddleware2 == null)
             {
-                throw new NullReferenceException(nameof(templateMiddleware3));
+                throw new NullReferenceException(nameof(templateMiddleware2));
             }
 
             if (templateMiddleware3 == null)
             {
-                throw new NullReferenceException(nameof(templateMiddleware2));
+                throw new NullReferenceException(nameof(templateMiddleware3));
+            }
+            
+            if (templateMiddleware4 == null)
+            {
+                throw new NullReferenceException(nameof(templateMiddleware4));
             }
 
             // Add the template middleware to the adapter's middleware pipeline
             Use(templateMiddleware);
             Use(templateMiddleware2);
             Use(templateMiddleware3);
-
+            Use(templateMiddleware4);
+            Use(templateMiddleware5);
 
             OnTurnError = async (turnContext, exception) =>
             {

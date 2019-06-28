@@ -48,7 +48,7 @@ namespace MiddlewareBot.Bots
 
         protected override async Task OnMessageActivityAsync(ITurnContext<IMessageActivity> turnContext, CancellationToken cancellationToken)
         {
-            await turnContext.SendActivityAsync(MessageFactory.Text($"Echo: {turnContext.Activity.Text}"), cancellationToken);
+            //await turnContext.SendActivityAsync(MessageFactory.Text($"Echo: {turnContext.Activity.Text}"), cancellationToken);
 
             // Get the state properties from the turn context.
 
@@ -67,10 +67,10 @@ namespace MiddlewareBot.Bots
             //// Bump the turn count for this conversation.
             //var newStateMethod1 = new CounterData { TurnCount = oldStateMethod1.TurnCount + 1 };
 
-            //conversationData.CounterData= newStateMethod1;
+            //conversationData.CounterData = newStateMethod1;
 
             //// Echo back to the user whatever they typed.
-            //var responseMessage = $"Turn {newStateMethod1.TurnCount}: You sent '{turnContext.Activity.Text}'\n";
+            //var responseMessage = $"EchoBot: Turn {newStateMethod1.TurnCount}: You sent '{turnContext.Activity.Text}'\n";
             //await turnContext.SendActivityAsync(responseMessage);
 
             ////////////////////////////////////////////////////////////////////////
@@ -87,7 +87,7 @@ namespace MiddlewareBot.Bots
             await conversationStateAccessors.SetAsync(turnContext, conversationData);
 
             // Echo back to the user whatever they typed.
-            var responseMessage2 = $"Turn {newStateMethod2.TurnCount}: You sent '{turnContext.Activity.Text}'\n";
+            var responseMessage2 = $"EchoBot: Turn {newStateMethod2.TurnCount}: You sent '{turnContext.Activity.Text}'\n";
             await turnContext.SendActivityAsync(responseMessage2);
 
             ////////////////////////////////////////////////////////////////////////
@@ -110,46 +110,6 @@ namespace MiddlewareBot.Bots
             //await turnContext.SendActivityAsync(responseMessageMethod3);
 
             ////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-            if (string.IsNullOrEmpty(userProfile.Name))
-            {
-                // First time around this is set to false, so we will prompt user for name.
-                if (conversationData.PromptedUserForName)
-                {
-                    // Set the name to what the user provided.
-                    userProfile.Name = turnContext.Activity.Text?.Trim();
-
-                    // Acknowledge that we got their name.
-                    await turnContext.SendActivityAsync($"Thanks {userProfile.Name}. To see conversation data, type anything.");
-
-                    // Reset the flag to allow the bot to go though the cycle again.
-                    conversationData.PromptedUserForName = false;
-                }
-                else
-                {
-                    // Prompt the user for their name.
-                    await turnContext.SendActivityAsync($"What is your name?");
-
-                    // Set the flag to true, so we don't prompt in the next turn.
-                    conversationData.PromptedUserForName = true;
-                }
-            }
-            else
-            {
-                // Add message details to the conversation data.
-                // Convert saved Timestamp to local DateTimeOffset, then to string for display.
-                var messageTimeOffset = (DateTimeOffset)turnContext.Activity.Timestamp;
-                var localMessageTime = messageTimeOffset.ToLocalTime();
-                conversationData.Timestamp = localMessageTime.ToString();
-                conversationData.ChannelId = turnContext.Activity.ChannelId.ToString();
-
-                // Display state data.
-                await turnContext.SendActivityAsync($"{userProfile.Name} sent: {turnContext.Activity.Text}");
-                await turnContext.SendActivityAsync($"Message received at: {conversationData.Timestamp}");
-                await turnContext.SendActivityAsync($"Message received from: {conversationData.ChannelId}");
-            }
         }
 
         protected override async Task OnMembersAddedAsync(IList<ChannelAccount> membersAdded, ITurnContext<IConversationUpdateActivity> turnContext, CancellationToken cancellationToken)
