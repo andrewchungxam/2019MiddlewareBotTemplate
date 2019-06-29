@@ -20,11 +20,11 @@ namespace MiddlewareBot
                 throw new ArgumentNullException(nameof(turnContext));
             }
 
-            await turnContext.SendActivityAsync($"MIDDLEWARE1 - BEFORE ANY ACTIVITY ");
+            //await turnContext.SendActivityAsync($"MIDDLEWARE1 - BEFORE ANY ACTIVITY ");
 
             await next(cancellationToken).ConfigureAwait(false);
 
-            await turnContext.SendActivityAsync($"MIDDLEWARE1 - AFTER ANY ACTIVITY ");
+            //await turnContext.SendActivityAsync($"MIDDLEWARE1 - AFTER ANY ACTIVITY ");
         }
     }
 }

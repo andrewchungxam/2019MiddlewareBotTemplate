@@ -41,15 +41,28 @@ namespace MiddlewareBot
 
             turnContext.OnSendActivities(async (newContext, activities, nextSend) =>
             {
-                List<Task> tasks = new List<Task>();
-                foreach (Activity currentActivity in activities.Where(a => a.Type == ActivityTypes.Message))
+                //List<Task> tasks = new List<Task>();
+                //foreach (Activity currentActivity in activities.Where(a => a.Type == ActivityTypes.Message))
+                //{
+                //    tasks.Add(TranslateMessageActivityAsync(currentActivity.AsMessageActivity())); //, userLanguage));
+                //}
+
+                //if (tasks.Any())
+                //{
+                //    await Task.WhenAll(tasks).ConfigureAwait(false);
+                //}
+
+                return await nextSend();
+
+                List<Task> tasksAfterNextSend = new List<Task>();
+                foreach (Activity currentActivityAfterNextSend in activities.Where(a => a.Type == ActivityTypes.Message))
                 {
-                    tasks.Add(TranslateMessageActivityAsync(currentActivity.AsMessageActivity())); //, userLanguage));
+                    tasksAfterNextSend.Add(TranslateMessageActivityAsync(currentActivityAfterNextSend.AsMessageActivity())); //, userLanguage));
                 }
 
-                if (tasks.Any())
+                if (tasksAfterNextSend.Any())
                 {
-                    await Task.WhenAll(tasks).ConfigureAwait(false);
+                    await Task.WhenAll(tasksAfterNextSend).ConfigureAwait(false);
                 }
 
                 return await nextSend();
@@ -66,6 +79,36 @@ namespace MiddlewareBot
             });
 
             await next(cancellationToken).ConfigureAwait(false);
+
+            //THIS DOES NOT ADD ANYTHING AND WONT BE CALLED
+            //turnContext.OnSendActivities(async (nextContext, activities, nextSend) =>
+            //{
+            //    List<Task> tasks = new List<Task>();
+            //    foreach (Activity currentActivity in activities.Where(a => a.Type == ActivityTypes.Message))
+            //    {
+            //        tasks.Add(TranslateMessageActivityAsync(currentActivity.AsMessageActivity())); //, userLanguage));
+            //    }
+
+            //    if (tasks.Any())
+            //    {
+            //        await Task.WhenAll(tasks).ConfigureAwait(false);
+            //    }
+
+            //    await nextSend();
+
+            //    List<Task> tasksAfterNextSend = new List<Task>();
+            //    foreach (Activity currentActivityAfterNextSend in activities.Where(a => a.Type == ActivityTypes.Message))
+            //    {
+            //        tasks.Add(TranslateMessageActivityAsync(currentActivityAfterNextSend.AsMessageActivity())); //, userLanguage));
+            //    }
+
+            //    if (tasks.Any())
+            //    {
+            //        await Task.WhenAll(tasks).ConfigureAwait(false);
+            //    }
+
+            //    return await nextSend();
+            //});
         }
 
         private async Task<string> TranslateMessageActivityAsync(IMessageActivity activity, CancellationToken cancellationToken = default(CancellationToken))
