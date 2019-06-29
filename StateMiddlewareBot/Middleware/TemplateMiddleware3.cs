@@ -39,33 +39,97 @@ namespace MiddlewareBot
                 turnContext.Activity.Text = await TranslateMessageActivityAsync(turnContext.Activity.AsMessageActivity());
             }
 
+            ////EXPERIMENT 1 - OPEN AND PIN VARIABLE > ACTIVITIES + TEXT + TYPE
+            //turnContext.OnSendActivities(async (newContext, activities, nextSend) =>
+            //{
+            //    List<Task> tasks = new List<Task>();
+            //    foreach (Activity currentActivity in activities.Where(a => a.Type == ActivityTypes.Message))
+            //    {
+            //        tasks.Add(TranslateMessageActivityAsync(currentActivity.AsMessageActivity())); //, userLanguage));
+            //    }
+
+            //    if (tasks.Any())
+            //    {
+            //        await Task.WhenAll(tasks).ConfigureAwait(false);
+            //    }
+
+            //    await nextSend();
+
+            ////EXPERIMENT 1 - OPEN AND PIN VARIABLE > ACTIVITIES + TEXT + TYPE
+            //    List<Task> tasksAfterNextSend = new List<Task>();
+            //    foreach (Activity currentActivityAfterNextSend in activities.Where(a => a.Type == ActivityTypes.Message))
+            //    {
+            //        tasksAfterNextSend.Add(TranslateMessageActivityAsync(currentActivityAfterNextSend.AsMessageActivity())); //, userLanguage));
+            //    }
+
+            //    if (tasksAfterNextSend.Any())
+            //    {
+            //        await Task.WhenAll(tasksAfterNextSend).ConfigureAwait(false);
+            //    }
+
+            //    return await nextSend();
+            //});
+
+            //EXPERIMENT 2 - OPEN AND PIN VARIABLE > ACTIVITIES + TEXT + TYPE
+            //turnContext.OnSendActivities(async (newContext, activities, nextSend) =>
+            //{
+            //    List<Task> tasks = new List<Task>();
+            //    foreach (Activity currentActivity in activities.Where(a => a.Type == ActivityTypes.Message))
+            //    {
+            //        tasks.Add(TranslateMessageActivityAsync(currentActivity.AsMessageActivity())); //, userLanguage));
+            //    }
+
+            //    if (tasks.Any())
+            //    {
+            //        await Task.WhenAll(tasks).ConfigureAwait(false);
+            //    }
+
+            //    return await nextSend();
+
+            //});
+
+            //EXPERIMENT 3 - OPEN AND PIN VARIABLE > ACTIVITIES + TEXT + TYPE //
+            // SCROLL DOWN TO METHOD TranslateMessageActivityAsync AND OPEN/PIN VARIABLE FOR RETURN appendableString
+            //turnContext.OnSendActivities(async (newContext, activities, nextSend) =>
+            //{
+            //    List<Task> tasks = new List<Task>();
+            //    foreach (Activity currentActivity in activities.Where(a => a.Type == ActivityTypes.Message))
+            //    {
+            //        tasks.Add(TranslateMessageActivityAsync(currentActivity.AsMessageActivity())); //, userLanguage));
+
+            //        var appendedString = await TranslateMessageActivityAsync(currentActivity.AsMessageActivity());
+            //        await turnContext.SendActivityAsync(appendedString);
+            //    }
+
+            //    if (tasks.Any())
+            //    {
+            //        await Task.WhenAll(tasks).ConfigureAwait(false);
+            //    }
+
+            //    return await nextSend();
+
+            //});
+
+            //EXPERIMENT 4 - OPEN AND PIN VARIABLE > ACTIVITIES + TEXT + TYPE //
+            // SCROLL DOWN TO METHOD TranslateMessageActivityAsync AND OPEN/PIN VARIABLE FOR RETURN appendableString
             turnContext.OnSendActivities(async (newContext, activities, nextSend) =>
             {
-                //List<Task> tasks = new List<Task>();
-                //foreach (Activity currentActivity in activities.Where(a => a.Type == ActivityTypes.Message))
-                //{
-                //    tasks.Add(TranslateMessageActivityAsync(currentActivity.AsMessageActivity())); //, userLanguage));
-                //}
-
-                //if (tasks.Any())
-                //{
-                //    await Task.WhenAll(tasks).ConfigureAwait(false);
-                //}
-
-                return await nextSend();
-
-                List<Task> tasksAfterNextSend = new List<Task>();
-                foreach (Activity currentActivityAfterNextSend in activities.Where(a => a.Type == ActivityTypes.Message))
+                List<Task> tasks = new List<Task>();
+                foreach (Activity currentActivity in activities.Where(a => a.Type == ActivityTypes.Message))
                 {
-                    tasksAfterNextSend.Add(TranslateMessageActivityAsync(currentActivityAfterNextSend.AsMessageActivity())); //, userLanguage));
+                    tasks.Add(TranslateMessageActivityAsync(currentActivity.AsMessageActivity())); //, userLanguage));
+
+                    var appendedString = await TranslateMessageActivityAsync(currentActivity.AsMessageActivity());
+                    currentActivity.Text = appendedString;
                 }
 
-                if (tasksAfterNextSend.Any())
+                if (tasks.Any())
                 {
-                    await Task.WhenAll(tasksAfterNextSend).ConfigureAwait(false);
+                    await Task.WhenAll(tasks).ConfigureAwait(false);
                 }
 
                 return await nextSend();
+
             });
 
             turnContext.OnUpdateActivity(async (newContext, activity, nextUpdate) =>
@@ -124,5 +188,6 @@ namespace MiddlewareBot
                 return "";
             }
         }
+
     }
 }
