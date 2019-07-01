@@ -17,7 +17,7 @@ There has been several elements that contain changes from the standard template:
 
 When you want to add your own middleware, you'll need to know where all the middleware pieces need to be declared.  Search in the project for TemplateMiddleware3 as an example. 
 
-### StateMiddlewareBot
+### CounterStateMiddlewareBot
 The other is called StateMiddlewareBot.  
 
 It is duplicated from the MiddlewareBot and then added the ability to maintain UserState.
@@ -28,6 +28,56 @@ Comment out all Middleware - you'll see the normal Echo + counter behavior with 
 
 Through these interactions, we'll see how Middleware interacts with your bot, interacts with each other (when there is multiple parts to your Middleware), and saves state, and finally, how you can fine-tune your Middleware to only act in certain instances.
 
+
+### StateMiddlewareBot
+The other is called StateMiddlewareBot.  
+
+It is duplicated from the MiddlewareBot and then added the ability to maintain UserState (similar to what we did with the CounterStateMiddlewareBot).
+It also contains elements from the project [Bot Builder project](https://github.com/microsoft/botbuilder-dotnet).  Look at the project, StateManagementBot there and look at the StateManagementBot.cs file.
+
+Look in the Middleware folder - TemplateMiddleware and TemplateMiddleware2.cs.  The  ```await turnContext.SendActivityAsync($"ABC ");``` are commented out so these files are mostly inert.  You can uncomment these statements to see how it interact with the rest of the Middleware / Bot.
+
+The main meat of the sample is in TemplateMiddleware3.cs.
+There are 4 experiments.  Manage the comments so that you only have 1 experiment running at a time.
+
+Each experiment has instructions on pinning variables in Visual Studio. This will help you see what variables/values are flowing through your code.  https://blogs.msdn.microsoft.com/benwilli/2015/04/08/visual-studio-tip-2-pin-your-data-tips/
+
+#### Run Experiment 1 
+Do you notice anything about outputs that are sent? Set a breakpoint before and after ```await nextSend();``` and pay attention the sequence of sent messages as it relates to the ```await nextSend();``` The idea of this is to realize how / when the following code is run: 
+```
+//WHEN DOES THIS HAPPEN?
+turnContext.OnSendActivities(async (newContext, activities, nextSend) =>
+{
+  //wHEN DOES THIS HAPPEN?
+  await nextSend();
+  //WHEN DOES THIS HAPPEN? 
+}
+```
+#### Run Experiment 2
+The code for experiment 2 is similar but the code after the ```await nextSend()``` has been eliminated.  What changed about the sent messages?   
+
+#### Run Experiment 3
+Before we run the next experiment - take a step back.  You've pinned the variable, you're noticing that after the TranslateMessageActivityAsync is hit, the string changes.  However, when you look at the sent messages, the messages sent originating from the Bot are not being changed.  
+
+Now in the previous project, the CounterStateMiddlewareBot we added ```turnContext.SendActivityAsync(string);``` in various points in the middleware to send messages to the user.  Let's do that again in this experiment - Experiment 3. 
+
+Uncomment Experiment 3, what happens? Why did it happen?
+
+#### Run experiment 4
+After Experiment 3 - if there are any issues, you may need to close the project and Visual Studio and run it again.
+Uncomment Experiment 4 - run the project. What happens to the messages?  What gets changed?  Why did it change?  What was added to the code to create the behavior you see.
+
+
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
 
 ## Prerequisites
 
