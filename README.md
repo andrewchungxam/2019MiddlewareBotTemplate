@@ -4,7 +4,7 @@
 There are two projects included:
 
 ### MiddlewareBot
-One is called the Middlewarebot; it is based on the official Bot Framework v4 echo bot sample.
+One is called the Middlewarebot; it is based on the official Bot Framework v4 EchoBot sample.
 
 This bot has been created using [Bot Framework](https://dev.botframework.com), it shows how to create a simple bot that accepts input from the user and echoes it back.
 
@@ -22,9 +22,7 @@ The other project is called CounterStateMiddlewareBot.
 
 This projects extends the MiddlewareBot; it adds the ability to maintain user and conversation state by adding elements from [this project](https://github.com/microsoft/BotBuilder-Samples/tree/master/samples/csharp_dotnetcore/45.state-management) from the official samples.
 
-In the EchoBot file, you'll see that we've listed 3 different Methods to store the data.
-
-It also has been summarized in Method 1, Method 2, and Method 3.
+In the EchoBot file, you'll see that we've listed 3 different Methods to store the data - they are listed as Method 1, Method 2, and Method 3.
 
 Through these interactions, we'll see how Middleware interacts with your bot, interacts with each other (when there is multiple parts to your Middleware), and saves state, and finally, how you can fine-tune your Middleware to only act in certain instances.
 
@@ -32,7 +30,7 @@ Go to the folder called Statement Management and you'll see four files named Con
 
 ConversationData, CounterData, UserProfile are essentially models that define the data we care about as C# classes.  We'll use these models as we keep track of the state of the Bot.  As we mentioned, there are 3 different methods to keep track of state in the Bot.  The first two add the class CounterData as a property to the official storage class called ConversationData. The third (more complicated) method subclasses BotState to create an analogous class to the official storage classes defined in the Bot framework - ie. ConversationData and UserProfile; this class is called CounterState. 
 
-Comment out the contents of all Middleware (if you just pulled the code down from the repo - this should be how it is already preset.)Y  ou'll see the normal Echo + counter behavior with each interaction adding one count to the displayed counter.  This behavior has been added in EchoBot.cs.  TemplateMiddleware and TemplateMiddleware2 are similiar to what we saw in the original MiddlewareBot - uncomment out any lines later to see how it interacts with the rest of the project.
+Comment out the contents of all Middleware (if you just pulled the code down from the repo - this should be how it is already preset.) You'll see the normal Echo + counter behavior with each interaction adding one count to the displayed counter.  This behavior has been added in EchoBot.cs.  TemplateMiddleware and TemplateMiddleware2 are similiar to what we saw in the original MiddlewareBot - uncomment out any lines later to see how it interacts with the rest of the project.
 
 You'll notice the method TranslateMessageActivityAsync.  If you look at this method what it is doing is taking the Activity message and then appending to it "+ by Middleware 3".  Run the bot - and you'll notice it's affect as you interact with the bot.
 
