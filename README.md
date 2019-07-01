@@ -38,11 +38,13 @@ It also contains elements from the project [Bot Builder project](https://github.
 Look in the Middleware folder - TemplateMiddleware and TemplateMiddleware2.cs.  The  ```await turnContext.SendActivityAsync($"ABC ");``` are commented out so these files are mostly inert.  You can uncomment these statements to see how it interact with the rest of the Middleware / Bot.
 
 The main meat of the sample is in TemplateMiddleware3.cs.
-There are 4 experiments.  Manage the comments so that you only have 1 experiment running at a time.
+There are 4 experiments.  Manage the commenting/uncommenting of code so that you only have 1 experiment running at a time.
 
 Each experiment has instructions on pinning variables in Visual Studio. This will help you see what variables/values are flowing through your code.  https://blogs.msdn.microsoft.com/benwilli/2015/04/08/visual-studio-tip-2-pin-your-data-tips/
 
 #### Run Experiment 1 
+Uncomment Experiment 1 - run the project.  What changed about the sent messages?   
+
 Do you notice anything about outputs that are sent? Set a breakpoint before and after ```await nextSend();``` and pay attention the sequence of sent messages as it relates to the ```await nextSend();``` The idea of this is to realize how / when the following code is run: 
 ```
 //WHEN DOES THIS HAPPEN?
@@ -54,18 +56,21 @@ turnContext.OnSendActivities(async (newContext, activities, nextSend) =>
 }
 ```
 #### Run Experiment 2
-The code for experiment 2 is similar but the code after the ```await nextSend()``` has been eliminated.  What changed about the sent messages?   
+The code for experiment 2 is similar but the code after the ```await nextSend()``` has been eliminated.  
+
+Uncomment Experiment 2 - remember to re-comment out Experiment 1.  Run the project.  What changed about the sent messages?   
 
 #### Run Experiment 3
 Before we run the next experiment - take a step back.  You've pinned the variable, you're noticing that after the TranslateMessageActivityAsync is hit, the string changes.  However, when you look at the sent messages, the messages sent originating from the Bot are not being changed.  
 
 Now in the previous project, the CounterStateMiddlewareBot we added ```turnContext.SendActivityAsync(string);``` in various points in the middleware to send messages to the user.  Let's do that again in this experiment - Experiment 3. 
 
-Uncomment Experiment 3, what happens? Why did it happen?
+Uncomment Experiment 3 - remember to re-comment out Experiment 2.  Run the project.  What happens? Why did it happen?
 
 #### Run experiment 4
 After Experiment 3 - if there are any issues, you may need to close the project and Visual Studio and run it again.
-Uncomment Experiment 4 - run the project. What happens to the messages?  What gets changed?  Why did it change?  What was added to the code to create the behavior you see.
+
+Uncomment Experiment 4 - remember to re-comment out Experiment 3.  Run the project.   What happens to the messages?  What gets changed?  Why did it change?  What was added to the code to create the behavior you see.
 
 
 
