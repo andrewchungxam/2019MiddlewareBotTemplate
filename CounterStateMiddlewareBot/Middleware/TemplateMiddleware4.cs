@@ -48,89 +48,86 @@ namespace MiddlewareBot
             {
                 throw new ArgumentNullException(nameof(turnContext));
             }
+            ///////////////////////////                /////////////////////////                /////////////////////////                /////////////////////////
+            ///////////////////////////                /////////////////////////                /////////////////////////                /////////////////////////
+            //// STEP 1
+            //// UNCOMMENT BELOW CODE
+            //// Get the conversation state from the turn context.
 
-            if (turnContext.Activity.Type == ActivityTypes.Message)
-            {
-                turnContext.Activity.Text = await TranslateMessageActivityAsync(turnContext.Activity.AsMessageActivity());
+            //if (turnContext.Activity.Type == ActivityTypes.Message)
+            //{
 
-                // Get the state properties from the turn context.
-                var conversationStateAccessors = _conversationState.CreateProperty<ConversationData>(nameof(ConversationData));
-                var conversationData = await conversationStateAccessors.GetAsync(turnContext, () => new ConversationData());
+            //    turnContext.Activity.Text = await TranslateMessageActivityAsync(turnContext.Activity.AsMessageActivity());
 
-                var userStateAccessors = _userState.CreateProperty<UserProfile>(nameof(UserProfile));
-                var userProfile = await userStateAccessors.GetAsync(turnContext, () => new UserProfile());
+            //    // Get the state properties from the turn context.
+            //    var conversationStateAccessors = _conversationState.CreateProperty<ConversationData>(nameof(ConversationData));
+            //    var conversationData = await conversationStateAccessors.GetAsync(turnContext, () => new ConversationData());
 
+            //    var userStateAccessors = _userState.CreateProperty<UserProfile>(nameof(UserProfile));
+            //    var userProfile = await userStateAccessors.GetAsync(turnContext, () => new UserProfile());
 
-                /////////////////////////                /////////////////////////                /////////////////////////                /////////////////////////
-                /////////////////////////                /////////////////////////                /////////////////////////                /////////////////////////
-                // STEP 1
-                // UNCOMMENT BELOW CODE
-                // Get the conversation state from the turn context.
-                var oldStateMethod2 = conversationData.CounterData;   //.GetAsync(turnContext, () => new CounterState());
+            //    var oldStateMethod2 = conversationData.CounterData;   //.GetAsync(turnContext, () => new CounterState());
 
-                // Bump the turn count for this conversation.
-                var newStateMethod2 = new CounterData { TurnCount = oldStateMethod2.TurnCount + 1 };
+            //    // Bump the turn count for this conversation.
+            //    var newStateMethod2 = new CounterData { TurnCount = oldStateMethod2.TurnCount + 1 };
 
-                conversationData.CounterData = newStateMethod2;
+            //    conversationData.CounterData = newStateMethod2;
 
-                await conversationStateAccessors.SetAsync(turnContext, conversationData);
+            //    await conversationStateAccessors.SetAsync(turnContext, conversationData);
 
-                // Echo back to the user whatever they typed.
-                var responseMessage2 = $"Middleware4: Turn {newStateMethod2.TurnCount}: You sent '{turnContext.Activity.Text}'\n";
-                await turnContext.SendActivityAsync(responseMessage2);
-                // END STEP 1
-                /////////////////////////                /////////////////////////                /////////////////////////                /////////////////////////
-                /////////////////////////                /////////////////////////                /////////////////////////                /////////////////////////
-
-            }
+            //    // Echo back to the user whatever they typed.
+            //    var responseMessage2 = $"Middleware4: Turn {newStateMethod2.TurnCount}: You sent '{turnContext.Activity.Text}'\n";
+            //    await turnContext.SendActivityAsync(responseMessage2);
+            //}
+            //    // END STEP 1
+            //    /////////////////////////                /////////////////////////                /////////////////////////                /////////////////////////
+            //    /////////////////////////                /////////////////////////                /////////////////////////                /////////////////////////
 
             await next(cancellationToken).ConfigureAwait(false);
 
+            ///////////////////////////                /////////////////////////                /////////////////////////                /////////////////////////
+            ///////////////////////////                /////////////////////////                /////////////////////////                /////////////////////////
+            //// STEP 2
+            //// UNCOMMENT BELOW CODE
+            //// Get the conversation state from the turn context.
 
-            if (turnContext.Activity.Type == ActivityTypes.Message)
-            {
-                /////////////////////////                /////////////////////////                /////////////////////////                /////////////////////////
-                /////////////////////////                /////////////////////////                /////////////////////////                /////////////////////////
-                // STEP 2
-                // UNCOMMENT BELOW CODE
-                // Get the conversation state from the turn context.
+            //if (turnContext.Activity.Type == ActivityTypes.Message)
+            //{
 
-                turnContext.Activity.Text = await TranslateMessageAfterNextActivityAsync(turnContext.Activity.AsMessageActivity());
+            //turnContext.Activity.Text = await TranslateMessageAfterNextActivityAsync(turnContext.Activity.AsMessageActivity());
 
-                // Get the state properties from the turn context.
-                var conversationStateAccessors = _conversationState.CreateProperty<ConversationData>(nameof(ConversationData));
-                var conversationData = await conversationStateAccessors.GetAsync(turnContext, () => new ConversationData());
+            //// Get the state properties from the turn context.
+            //var conversationStateAccessors = _conversationState.CreateProperty<ConversationData>(nameof(ConversationData));
+            //var conversationData = await conversationStateAccessors.GetAsync(turnContext, () => new ConversationData());
 
-                var userStateAccessors = _userState.CreateProperty<UserProfile>(nameof(UserProfile));
-                var userProfile = await userStateAccessors.GetAsync(turnContext, () => new UserProfile());
-                
-                // Get the conversation state from the turn context.
-                var oldStateMethod2 = conversationData.CounterData;   //.GetAsync(turnContext, () => new CounterState());
+            //var userStateAccessors = _userState.CreateProperty<UserProfile>(nameof(UserProfile));
+            //var userProfile = await userStateAccessors.GetAsync(turnContext, () => new UserProfile());
 
-                // Bump the turn count for this conversation.
-                var newStateMethod2 = new CounterData { TurnCount = oldStateMethod2.TurnCount + 1 };
+            //// Get the conversation state from the turn context.
+            //var oldStateMethod2 = conversationData.CounterData;   //.GetAsync(turnContext, () => new CounterState());
 
-                conversationData.CounterData = newStateMethod2;
+            //// Bump the turn count for this conversation.
+            //var newStateMethod2 = new CounterData { TurnCount = oldStateMethod2.TurnCount + 1 };
 
-                await conversationStateAccessors.SetAsync(turnContext, conversationData);
+            //conversationData.CounterData = newStateMethod2;
 
+            //await conversationStateAccessors.SetAsync(turnContext, conversationData);
 
-
-                //EXPERIMENT 1 - COMMENT OUT THE TWO "SaveChangesAsync" LINES
-                //THIS IS NECESSARY BECAUSE THE CHANGES GET SAVED AFTER THE TURN WHICH HAPPENS BEFORE THE `await next(cancellationToken).ConfigureAwait(false);`
-                await _conversationState.SaveChangesAsync(turnContext, false, cancellationToken);
-                await _userState.SaveChangesAsync(turnContext, false, cancellationToken);
-
-                // Echo back to the user whatever they typed.
-                var responseMessage2 = $"Middleware4AfterNext: Turn {newStateMethod2.TurnCount}: You sent '{turnContext.Activity.Text}'\n";
-                await turnContext.SendActivityAsync(responseMessage2);
+            ////EXPERIMENT 2 - COMMENT OUT THE TWO "SaveChangesAsync" LINES
+            ////THIS IS NECESSARY BECAUSE THE CHANGES GET SAVED AFTER THE TURN WHICH HAPPENS BEFORE THE `await next(cancellationToken).ConfigureAwait(false);`
+            //await _conversationState.SaveChangesAsync(turnContext, false, cancellationToken);
+            //await _userState.SaveChangesAsync(turnContext, false, cancellationToken);
+            ////END EXPERIMENT 2 - COMMENT OUT THE TWO "SaveChangesAsync" LINES
 
 
-                // END STEP 2
-                /////////////////////////                /////////////////////////                /////////////////////////                /////////////////////////
-                /////////////////////////                /////////////////////////                /////////////////////////                /////////////////////////
+            //// Echo back to the user whatever they typed.
+            //var responseMessage2 = $"Middleware4AfterNext: Turn {newStateMethod2.TurnCount}: You sent '{turnContext.Activity.Text}'\n";
+            //await turnContext.SendActivityAsync(responseMessage2);
+            //}
 
-            }
+            //// END STEP 2
+            ///////////////////////////                /////////////////////////                /////////////////////////                /////////////////////////
+            ///////////////////////////                /////////////////////////                /////////////////////////                /////////////////////////
         }
 
         private async Task<string> TranslateMessageActivityAsync(IMessageActivity activity, CancellationToken cancellationToken = default(CancellationToken))
