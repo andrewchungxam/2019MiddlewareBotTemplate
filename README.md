@@ -15,7 +15,7 @@ There has been several elements that contain changes from the standard template:
 - TemplateMiddleware2.cs
 - TemplateMiddleware3.cs
 
-When you want to add your own middleware, you'll need to know where all the middleware pieces need to be declared.  Search in the project for TemplateMiddleware3 as an example. 
+When you want to add your own middleware, you'll need to know where all the middleware pieces need to be declared.  Search in the entire project for TemplateMiddleware3 as an example.  You'll notice it appear a few times: Startup.cs and the AdapterWithErrorHander.cs - and sometimes more than once.
 
 ### CounterStateMiddlewareBot
 The other project is called CounterStateMiddlewareBot.  
@@ -24,19 +24,23 @@ This projects extends the MiddlewareBot; it adds the ability to maintain user an
 
 In the EchoBot file, you'll see that we've listed 3 different Methods to store the data.
 
+It also has been summarized in Method 1, Method 2, and Method 3.
+
+Through these interactions, we'll see how Middleware interacts with your bot, interacts with each other (when there is multiple parts to your Middleware), and saves state, and finally, how you can fine-tune your Middleware to only act in certain instances.
+
 Go to the folder called Statement Management and you'll see four files named ConversationData, CounterData, UserProfile, and CounterState.  
 
 ConversationData, CounterData, UserProfile are essentially models that define the data we care about as C# classes.  We'll use these models as we keep track of the state of the Bot.  As we mentioned, there are 3 different methods to keep track of state in the Bot.  The first two add the class CounterData as a property to the official storage class called ConversationData. The third (more complicated) method subclasses BotState to create an analogous class to the official storage classes defined in the Bot framework - ie. ConversationData and UserProfile; this class is called CounterState. 
 
-Comment out all Middleware - you'll see the normal Echo + counter behavior with each interaction adding one count to the displayed counter.  This behavior has been added in EchoBot.cs.  
+Comment out the contents of all Middleware (if you just pulled the code down from the repo - this should be how it is already preset.)Y  ou'll see the normal Echo + counter behavior with each interaction adding one count to the displayed counter.  This behavior has been added in EchoBot.cs.  TemplateMiddleware and TemplateMiddleware2 are similiar to what we saw in the original MiddlewareBot - uncomment out any lines later to see how it interacts with the rest of the project.
 
+You'll notice the method TranslateMessageActivityAsync.  If you look at this method what it is doing is taking the Activity message and then appending to it "+ by Middleware 3".  Run the bot - and you'll notice it's affect as you interact with the bot.
 
-It also has been summarized in Method 1, Method 2, and Method 3.
-- Then in the StateMiddleware, we'll simply have the middleware add one count (ie. you'll see the counter jump up more than one at a time.)  
-- Then in StateMiddleware2, we'll have the middleware add another count (you'll see futher jumps.)   -Finally in StateMiddleware3, we'll have the middleware add a count for each message that is sent out (you'll see accelerated jumps.)
+If you look at TemplateMiddleware4 and TemplateMiddleware5 - you see there a couple sections commented out. They are specified as Step 1, Step 2, Step 3, and Step 4.  Comment them out one by one, and run the project between each time you comment a step.
 
-Through these interactions, we'll see how Middleware interacts with your bot, interacts with each other (when there is multiple parts to your Middleware), and saves state, and finally, how you can fine-tune your Middleware to only act in certain instances.
+Finally, notice Experiment 1 and Experiment 2.  After you get a handle of what the other parts of the middleware are doing, then comment out Experiment 1 (then run the project) and then comment out Experiment 2 (then run the project again).  Type a message in the Bot several times.  Notice what is happening, pay very close attention to the counts spit back by the Bot.  What happens when you comment out Experiment 1?  What happens when you comment out Experiment 2?  *Important: type a couple messages in the Bot; pay very close attention how the counts jump.*
 
+Think through the sequence of the steps of the Bots including the sequence of steps of the Middleware.  Think about what gets saved and what doesn't when you comment the Experiment 1 and Experiment 2.  Then, if you're looking for the "how" and "why" - take a look at EchoBot.cs, specifically on the method:  ```OnTurnAsync(...)```  Does that help answer questions about why the top (pre-Bot) portion of the Middleware gets saved?
 
 ### StateMiddlewareBot
 The other is called StateMiddlewareBot.  
