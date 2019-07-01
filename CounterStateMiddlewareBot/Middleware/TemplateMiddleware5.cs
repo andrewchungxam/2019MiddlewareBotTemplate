@@ -62,8 +62,6 @@ namespace MiddlewareBot
             {
                 turnContext.Activity.Text = await TranslateMessageActivityAsync(turnContext.Activity.AsMessageActivity());
 
-
-
                 ////////////////////////////////////////////////////////////////////////
                 ///METHOD 1
 
@@ -171,6 +169,7 @@ namespace MiddlewareBot
 
                 await conversationStateAccessors.SetAsync(turnContext, conversationData);
 
+                //EXPERIMENT 2 - COMMENT OUT THE TWO "SaveChangesAsync" LINES
                 //THIS IS NECESSARY BECAUSE THE CHANGES GET SAVED AFTER THE TURN WHICH HAPPENS BEFORE THE `await next(cancellationToken).ConfigureAwait(false);`
                 await _conversationState.SaveChangesAsync(turnContext, false, cancellationToken);
                 await _userState.SaveChangesAsync(turnContext, false, cancellationToken);

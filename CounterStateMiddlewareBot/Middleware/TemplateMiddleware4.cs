@@ -79,7 +79,10 @@ namespace MiddlewareBot
 
                 ////////////////////////////////////////////////////////////////////////
                 ///METHOD 2
+                ///
 
+                // STEP 1
+                // UNCOMMENT BELOW CODE
                 // Get the conversation state from the turn context.
                 var oldStateMethod2 = conversationData.CounterData;   //.GetAsync(turnContext, () => new CounterState());
 
@@ -93,7 +96,7 @@ namespace MiddlewareBot
                 // Echo back to the user whatever they typed.
                 var responseMessage2 = $"Middleware4: Turn {newStateMethod2.TurnCount}: You sent '{turnContext.Activity.Text}'\n";
                 await turnContext.SendActivityAsync(responseMessage2);
-
+                // END STEP 1
 
             }
 
@@ -169,6 +172,7 @@ namespace MiddlewareBot
 
                 await conversationStateAccessors.SetAsync(turnContext, conversationData);
 
+                //EXPERIMENT 1 - COMMENT OUT THE TWO "SaveChangesAsync" LINES
                 //THIS IS NECESSARY BECAUSE THE CHANGES GET SAVED AFTER THE TURN WHICH HAPPENS BEFORE THE `await next(cancellationToken).ConfigureAwait(false);`
                 await _conversationState.SaveChangesAsync(turnContext, false, cancellationToken);
                 await _userState.SaveChangesAsync(turnContext, false, cancellationToken);
