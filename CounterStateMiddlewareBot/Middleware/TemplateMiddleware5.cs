@@ -62,24 +62,6 @@ namespace MiddlewareBot
             {
                 turnContext.Activity.Text = await TranslateMessageActivityAsync(turnContext.Activity.AsMessageActivity());
 
-                ////////////////////////////////////////////////////////////////////////
-                ///METHOD 1
-
-                ////Get the conversation state from the turn context.
-                //var oldStateMethod1 = conversationData.CounterData;
-
-                //// Bump the turn count for this conversation.
-                //var newStateMethod1 = new CounterData { TurnCount = oldStateMethod1.TurnCount + 1 };
-
-                //conversationData.CounterData= newStateMethod1;
-
-                //// Echo back to the user whatever they typed.
-                //var responseMessage = $"Turn {newStateMethod1.TurnCount}: You sent '{turnContext.Activity.Text}'\n";
-                //await turnContext.SendActivityAsync(responseMessage);
-
-                ////////////////////////////////////////////////////////////////////////
-                ///METHOD 2
-
                 // Get the conversation state from the turn context.
                 var oldStateMethod2 = conversationData.CounterData;   //.GetAsync(turnContext, () => new CounterState());
 
@@ -94,34 +76,8 @@ namespace MiddlewareBot
                 var responseMessage2 = $"Middleware5: Turn {newStateMethod2.TurnCount}: You sent '{turnContext.Activity.Text}'\n";
                 await turnContext.SendActivityAsync(responseMessage2);
 
-
             }
 
-            //turnContext.OnSendActivities(async (newContext, activities, nextSend) =>
-            //{
-            //    List<Task> tasks = new List<Task>();
-            //    foreach (Activity currentActivity in activities.Where(a => a.Type == ActivityTypes.Message))
-            //    {
-            //        tasks.Add(TranslateMessageActivityAsync(currentActivity.AsMessageActivity())); //, userLanguage));
-            //    }
-
-            //    if (tasks.Any())
-            //    {
-            //        await Task.WhenAll(tasks).ConfigureAwait(false);
-            //    }
-
-            //    return await nextSend();
-            //});
-
-            //turnContext.OnUpdateActivity(async (newContext, activity, nextUpdate) =>
-            //{
-            //    //// Translate messages sent to the user to user language
-            //    if (activity.Type == ActivityTypes.Message)
-            //    {
-            //        await TranslateMessageActivityAsync(activity.AsMessageActivity());//, userLanguage);
-            //    }
-            //    return await nextUpdate();
-            //});
 
             await next(cancellationToken).ConfigureAwait(false);
 
@@ -129,35 +85,6 @@ namespace MiddlewareBot
             if (turnContext.Activity.Type == ActivityTypes.Message)
             {
                 turnContext.Activity.Text = await TranslateMessageAfterNextActivityAsync(turnContext.Activity.AsMessageActivity());
-                // Echo back to the user whatever they typed.
-                //var responseMessage2afterNext = $"Middleware4 after Next: You sent '{turnContext.Activity.Text}'\n";
-                //await turnContext.SendActivityAsync(responseMessage2afterNext);
-
-                // Get the state properties from the turn context.
-
-                //var conversationStateAccessors = _conversationState.CreateProperty<ConversationData>(nameof(ConversationData));
-                //var conversationData = await conversationStateAccessors.GetAsync(turnContext, () => new ConversationData());
-
-                //var userStateAccessors = _userState.CreateProperty<UserProfile>(nameof(UserProfile));
-                //var userProfile = await userStateAccessors.GetAsync(turnContext, () => new UserProfile());
-
-                ////////////////////////////////////////////////////////////////////////
-                ///METHOD 1
-
-                ////Get the conversation state from the turn context.
-                //var oldStateMethod1 = conversationData.CounterData;
-
-                //// Bump the turn count for this conversation.
-                //var newStateMethod1 = new CounterData { TurnCount = oldStateMethod1.TurnCount + 1 };
-
-                //conversationData.CounterData= newStateMethod1;
-
-                //// Echo back to the user whatever they typed.
-                //var responseMessage = $"Turn {newStateMethod1.TurnCount}: You sent '{turnContext.Activity.Text}'\n";
-                //await turnContext.SendActivityAsync(responseMessage);
-
-                ////////////////////////////////////////////////////////////////////////
-                ///METHOD 2
 
                 // Get the conversation state from the turn context.
                 var oldStateMethod2 = conversationData.CounterData;   //.GetAsync(turnContext, () => new CounterState());
