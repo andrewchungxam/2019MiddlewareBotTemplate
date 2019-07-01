@@ -18,11 +18,23 @@ There has been several elements that contain changes from the standard template:
 When you want to add your own middleware, you'll need to know where all the middleware pieces need to be declared.  Search in the project for TemplateMiddleware3 as an example. 
 
 ### CounterStateMiddlewareBot
-The other is called StateMiddlewareBot.  
+The other project is called CounterStateMiddlewareBot.  
 
-It is duplicated from the MiddlewareBot and then added the ability to maintain UserState.
+This projects extends the MiddlewareBot; it adds the ability to maintain user and conversation state by adding elements from [this project](https://github.com/microsoft/BotBuilder-Samples/tree/master/samples/csharp_dotnetcore/45.state-management) from the official samples.
 
-Comment out all Middleware - you'll see the normal Echo + counter behavior with each interaction adding one count to the displayed counter.  
+In the EchoBot file, you'll see that we've listed 3 different Methods to store the data.
+
+Go to the folder called Statement Management and you'll see four files named ConversationData, CounterData, UserProfile, and CounterState.  
+
+ConversationData, CounterData, UserProfile are essentials models that define the data we care about in C# classes.  We'll use these models as we keep track of the state of the Bot.  As we mentioned, there are 3 different methods to store the data.  The first two add the class CounterData as a property to the official storage class called ConversationData. The third (more complicated) method subclasses BotState to create an analogous class to the official storage classes defined in the Bot framework - ie. ConversationData and UserProfile; this class is called CounterState. 
+
+Comment out all Middleware - you'll see the normal Echo + counter behavior with each interaction adding one count to the displayed counter.  This behavior has been added in EchoBot.cs.  
+
+In 
+
+
+
+It also has been summarized in Method 1, Method 2, and Method 3.
 - Then in the StateMiddleware, we'll simply have the middleware add one count (ie. you'll see the counter jump up more than one at a time.)  
 - Then in StateMiddleware2, we'll have the middleware add another count (you'll see futher jumps.)   -Finally in StateMiddleware3, we'll have the middleware add a count for each message that is sent out (you'll see accelerated jumps.)
 
