@@ -83,6 +83,9 @@ After Experiment 3 - if there are any issues, you may need to close the project 
 
 Uncomment Experiment 4 - remember to re-comment out Experiment 3.  Run the project.   What happens to the messages?  What gets changed?  Why did it change?  What was added to the code to create the behavior you see.
 
+### Important references
+
+https://stackoverflow.com/questions/54227991/how-to-differentiate-bot-to-user-and-user-to-bot-messages-using-middleware-in-bo
 
 
 <br />
